@@ -57,7 +57,6 @@ class tx_veguestbook_pi1 extends tslib_pibase {
 
 		$this->sys_language_uid = $GLOBALS['TSFE']->config['config']['sys_language_uid'] ? $GLOBALS['TSFE']->config['config']['sys_language_uid'] : '0';
 
-
 		$this->enableFields = $this->cObj->enableFields($this->strEntryTable);
 		$this->code = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'what_to_display', 'sDEF');
 
@@ -108,11 +107,11 @@ class tx_veguestbook_pi1 extends tslib_pibase {
 
 		// Website-Validation
 		if (!empty($this->conf['allowedTags'])) {
-			$this->config['allowedTags'] = explode(',', $this->conf['allowedTags']);
+			$this->config['allowedTags'] = $this->conf['allowedTags'];
 		} else {
-			$this->config['allowedTags'] = array();
+			$this->config['allowedTags'] = false;
 		}
-
+		
 		// Link to the guestbook in teaser mode and notification mail
 		$this->config['guestbook'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'guestbook', 'sDEF') ? implode(t3lib_div::intExplode(',', $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'guestbook', 'sDEF')), ',') : '';
 
@@ -680,7 +679,9 @@ class tx_veguestbook_pi1 extends tslib_pibase {
 					{
 						if (in_array($k, $db_fields)) {
 							
-							$v = strip_tags($v, $this->config['allowedTags']);
+							if ($this->config['allowedTags']) {
+								$v = strip_tags($v, $this->config['allowedTags']);
+							}
 
 							$saveData[$k] = $this->local_cObj->removeBadHTML($v, array());
 						}
