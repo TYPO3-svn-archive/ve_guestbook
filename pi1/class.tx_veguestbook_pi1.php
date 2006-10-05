@@ -38,9 +38,9 @@ class tx_veguestbook_pi1 extends tslib_pibase {
 	var $strEntryTable = "tx_veguestbook_entries";
 	var $code = '';
 	var $tt_news=array();
-	var $for_tt_news;
-	var $tt_news_url_params_list='tx_ttnews[tt_news],tx_ttnews[backPid],tx_ttnews[year],tx_ttnews[month],tx_ttnews[day],cHash';
-
+	var $for_tt_news;	
+	var $tt_news_url_params_list='tx_ttnews[cat],tx_ttnews[tt_news],tx_ttnews[backPid],tx_ttnews[year],tx_ttnews[month],tx_ttnews[day],cHash';
+	
 	/**
 	 * Init Function: all needed configuration values are stored in the member variable $this->config and the template code goes in $this->templateCode .
 	 *
